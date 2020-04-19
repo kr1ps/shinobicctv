@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+  app:
+    image: shinobisystems/shinobi:latest-ubuntu
+    container_name: shinobi-vms
+    restart: always
+    volumes:      
+      - /dev/shm/shinobiStreams:/dev/shm/streams
+      - /home/docker/shinobi/shinobiConfig:/config
+      - /home/docker/shinobi/shinobiCustomAutoLoad:/customAutoLoad
+      - /home/docker/shinobi/shinobiDatabase:/var/lib/mysql
+      - /mnt/media/shinobi/videos:/opt/shinobi/videos
+    environment:
+      - APP_BRANCH=dev
+    ports:
+      - 8886:8080
+     
+    network_mode: bridge
