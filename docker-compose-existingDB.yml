@@ -1,11 +1,5 @@
 version: '2'
 services:
-  db:
-    image: mariadb
-    env_file:
-      - MySQL.env
-    volumes:
-      - ./datadir:/var/lib/mysql
   shinobi:
     image: migoller/shinobidocker:microservice-debian
     env_file:
