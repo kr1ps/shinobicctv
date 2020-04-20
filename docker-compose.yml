@@ -1,19 +1,21 @@
-version: '3.1'
-
-services:
-  app:
-    image: shinobisystems/shinobi:latest-ubuntu
-    container_name: shinobi-vms
-    restart: always
-    volumes:      
-      - /dev/shm/shinobiStreams:/dev/shm/streams
-      - /home/docker/shinobi/shinobiConfig:/config
-      - /home/docker/shinobi/shinobiCustomAutoLoad:/customAutoLoad
-      - /home/docker/shinobi/shinobiDatabase:/var/lib/mysql
-      - /mnt/media/shinobi/videos:/opt/shinobi/videos
-    environment:
-      - APP_BRANCH=dev
-    ports:
-      - 8886:8080
-     
-    network_mode: bridge
+version: '2'
+ services:
+   db:
+     image: mariadb
+     env_file:
+       - MySQL.env
+     volumes:
+       - ./datadir:/var/lib/mysql
+   shinobi:
+     image: migoller/shinobidocker:microservice-debian
+     env_file:
+       - MySQL.env
+       - Shinobi.env
+     volumes:
+       - /etc/localtime:/etc/localtime:ro
+       - /etc/timezone:/etc/timezone:ro
+       - ./config:/config
+       - /mnt/media/shinobi/videos:/opt/shinobi/videos
+       - /dev/shm/shinobiDockerTemp:/dev/shm/streams
+     ports:
+       - "8886:8080"
