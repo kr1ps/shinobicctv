@@ -9,3 +9,4 @@ docker-compose of VMS open source software for video surveillance.
 Enjoy  :)
 
 
+source = https://hub.docker.com/r/migoller/shinobidocker
